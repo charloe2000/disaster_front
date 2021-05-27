@@ -11,6 +11,7 @@ import '@/styles/index.scss' // global css
 import App from './App'
 import store from './store'
 import router from './router'
+// import axios from 'axios'
 
 import '@/icons' // icon
 import '@/permission' // permission control
@@ -32,6 +33,9 @@ if (process.env.NODE_ENV === 'production') {
 // Vue.use(ElementUI, { locale })
 // 如果想要中文版 element-ui，按如下方式声明
 Vue.use(ElementUI)
+
+// 将全局的 echarts 对象挂载到Vue的原型对象上别的组件中 this.$echarts
+Vue.prototype.$echarts = window.echarts
 
 Vue.config.productionTip = false
 
