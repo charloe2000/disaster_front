@@ -2,12 +2,6 @@
   <div class="app-container">
     <el-row>
       <el-form ref="form" :model="form" label-width="120px">
-        <el-form-item label="灾情类型">
-          <el-select v-model="form.type" placeholder="please select your zone">
-            <el-option label="基本震情" value="0" />
-            <el-option label="山体崩塌" value="1" />
-          </el-select>
-        </el-form-item>
         <el-form-item label="日 期">
           <el-col :span="11">
             <el-date-picker v-model="form.start_date" type="date" placeholder="Pick a date" style="width: 100%;" value-format="yyyy-MM-dd" />
@@ -113,7 +107,6 @@ export default {
   data() {
     return {
       form: {
-        type: '',
         start_date: '',
         end_date: '',
         start_magnitude: '',

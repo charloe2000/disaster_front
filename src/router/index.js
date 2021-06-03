@@ -80,12 +80,35 @@ export const constantRoutes = [
   {
     path: '/search',
     component: Layout,
-    children: [{
-      path: 'index',
-      name: 'Search',
-      component: () => import('@/views/search/index'),
-      meta: { title: '灾情查询', icon: 'el-icon-search' }
-    }]
+    redirect: '/search/earthquake',
+    name: 'Search',
+    meta: { title: '灾情查询', icon: 'el-icon-s-data' },
+    children: [
+      {
+      path: 'earthquake',
+      name: 'EarthquakeSearch',
+      component: () => import('@/views/search/earthquake/index'),
+      meta: { title: '基本震情查询', icon: 'el-icon-search' }
+      },
+      {
+        path: 'second',
+        name: 'SecondSearch',
+        component: () => import('@/views/search/second/index'),
+        meta: { title: '次生灾害查询', icon: 'el-icon-search' }
+      },
+      {
+        path: 'house',
+        name: 'HouseSearch',
+        component: () => import('@/views/search/house/index'),
+        meta: { title: '房屋破坏查询', icon: 'el-icon-search' }
+      },
+      {
+        path: 'people',
+        name: 'PeopleSearch',
+        component: () => import('@/views/search/people/index'),
+        meta: { title: '人员伤亡查询', icon: 'el-icon-search' }
+      }
+    ]
   },
 
   {
