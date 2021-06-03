@@ -4,7 +4,7 @@
       <el-col style="width:100%">
         <!-- <img :src="map" width="100%" alt="map"> -->
         <div id="map-container">
-          <div ref="map_ref" style="width: 600px;height:400px;border: 1px solid #f00"></div>
+          <div ref="map_ref" style="width: 600px;height:400px;border: 1px solid #f00" />
         </div>
       </el-col>
       <el-col style="width:70%;">

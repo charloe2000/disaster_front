@@ -1,11 +1,11 @@
 import Vue from 'vue'
-
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
-
+// eslint-disable-next-line no-unused-vars
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 // import locale from 'element-ui/lib/locale/lang/en' // lang i18n
-
 import '@/styles/index.scss' // global css
 
 import App from './App'
@@ -33,12 +33,11 @@ if (process.env.NODE_ENV === 'production') {
 // Vue.use(ElementUI, { locale })
 // 如果想要中文版 element-ui，按如下方式声明
 Vue.use(ElementUI)
-
+Vue.use(BootstrapVue)
 // 将全局的 echarts 对象挂载到Vue的原型对象上别的组件中 this.$echarts
 Vue.prototype.$echarts = window.echarts
 
 Vue.config.productionTip = false
-
 new Vue({
   el: '#app',
   router,
