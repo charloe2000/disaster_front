@@ -12,6 +12,16 @@
           <div id="main2" style="height: 330px;background: aliceblue;margin-top: 20px" />
         </b-col>
       </b-row>
+      <b-row style="margin-top: 20px">
+        <!--左侧地图界面-->
+        <b-col >
+          <h4 style="text-align: center">影响时间占比</h4>
+        </b-col>
+        <!--右侧折线图界面-->
+        <b-col>
+          <h4 style="text-align: center">各类影响时间分布</h4>
+        </b-col>
+      </b-row>
     </b-container>
   </div>
 </template>
@@ -74,10 +84,10 @@ export default {
               show: false
             },
             data: [
-              { value: 1048, name: '次生灾害' },
-              { value: 735, name: '房屋破坏' },
-              { value: 580, name: '基本震情' },
-              { value: 484, name: '人员伤亡' }
+              { value: 1448, name: '0-2小时' },
+              { value: 935, name: '2-4小时' },
+              { value: 580, name: '4-6小时' },
+              { value: 484, name: '其他' }
             ]
           }
         ]

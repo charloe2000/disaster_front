@@ -99,105 +99,21 @@ export default {
       const myChart = echarts.init(document.getElementById('main'))
       const option = {
         title: {
-          text: '数据图',
-          left: 'center'
+          text: '伤亡人数图'
         },
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            animation: false
-          }
+        xAxis: {
+          type: 'category',
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
         },
-        legend: {
-          data: [this.relatedData1Name, this.relatedData2Name],
-          left: 10
+        yAxis: {
+          type: 'value'
         },
-        toolbox: {
-          feature: {
-            dataZoom: {
-              yAxisIndex: 'none'
-            },
-            restore: {},
-            saveAsImage: {}
-          }
-        },
-        axisPointer: {
-          link: { xAxisIndex: 'all' }
-        },
-        dataZoom: [
-          {
-            show: true,
-            realtime: true,
-            start: 30,
-            end: 70,
-            xAxisIndex: [0, 1]
-          },
-          {
-            type: 'inside',
-            realtime: true,
-            start: 30,
-            end: 70,
-            xAxisIndex: [0, 1]
-          }
-        ],
-        grid: [{
-          left: 50,
-          right: 50,
-          height: '35%'
-        }, {
-          left: 50,
-          right: 50,
-          top: '55%',
-          height: '35%'
-        }],
-        xAxis: [
-          {
-            type: 'category',
-            boundaryGap: false,
-            axisLine: { onZero: true },
-            data: this.timeData
-          },
-          {
-            gridIndex: 1,
-            type: 'category',
-            boundaryGap: false,
-            axisLine: { onZero: true },
-            data: this.timeData,
-            position: 'top'
-          }
-        ],
-        yAxis: [
-          {
-            name: this.relatedData1Name,
-            type: 'value',
-            max: 2500
-          },
-          {
-            gridIndex: 1,
-            name: this.relatedData2Name,
-            type: 'value',
-            inverse: true
-          }
-        ],
-        series: [
-          {
-            name: this.relatedData1Name,
-            type: 'line',
-            symbolSize: 8,
-            hoverAnimation: false,
-            data: this.relatedData1
-          },
-          {
-            name: this.relatedData2Name,
-            type: 'line',
-            xAxisIndex: 1,
-            yAxisIndex: 1,
-            symbolSize: 8,
-            hoverAnimation: false,
-            data: this.relatedData2
-          }
-        ]
-      }
+        series: [{
+          data: [820, 932, 901, 934, 1290, 1330, 1320],
+          type: 'line',
+          smooth: true
+        }]
+      };
 
       // 使用刚指定的配置项和数据显示图表。
       myChart.setOption(option)
