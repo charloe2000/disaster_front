@@ -8,7 +8,7 @@
           </el-col>
           <el-col :span="2" class="line">-</el-col>
           <el-col :span="11">
-            <el-date-picker v-model="form.end_date" type="fixed-time" placeholder="Pick a time" style="width: 100%;" value-format="yyyy-MM-dd" />
+            <el-date-picker v-model="form.end_date" type="date" placeholder="Pick a time" style="width: 100%;" value-format="yyyy-MM-dd" />
           </el-col>
         </el-form-item>
         <el-form-item label="地 区">
@@ -64,18 +64,61 @@
 
 <script>
 import { regionData, CodeToText } from "element-china-area-data";
-
+import axios from 'axios'
 export default {
   data() {
     return {
       options: regionData,
-      selectdOptions: [],
+      selectedOptions: [],
       form: {
         start_date: '',
         end_date: ''
       },
       list: null,
-      listLoading: false
+      listLoading: false,
+    }
+  },
+  methods: {
+    async onSearch (event) {
+      let url = 'http://localhost:8000/inquire/getStructureStatistics/'
+      
+      // 获取地区名字
+      if (!!this.selectedOptions && this.selectedOptions.length > 0) {
+        for (const prov of this.options) {
+          if (prov.value == this.selectedOptions[0]) {
+            for (const city of prov.children) {
+              if (city.value == this.selectedOptions[1]) {
+                for (const town of city.children) {
+                  if (town.value == this.selectedOptions[2]) {
+                    url += 'location=' + prov.label + city.label + town.label + '&'
+                    break
+                  }
+                }
+                break
+              }
+            }
+            break
+          }
+        }
+      }
+
+      for (const key in this.form) {
+        if (!!this.form[key] && this.form[key] != '') {
+          url += key + '=' + this.form[key] + '&'
+        }
+      }
+
+      if (url[url.length - 1] != '/') {
+        if (url[url.length - 1] == '&') {
+          url = url.substr(0, url.length - 1)
+        }
+        const response = await axios.get(url)
+        this.list = response.data.data
+      }
+    },
+    handleChange(value) {
+      // 必须通过@change来设置selectedOptions，不能通过v-model设置（否则数据不实时）
+      this.selectedOptions = value
     }
   }
 }

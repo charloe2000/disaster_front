@@ -4,47 +4,47 @@
       <el-form ref="form" :model="form" label-width="120px">
         <el-form-item label="日 期">
           <el-col :span="11">
-            <el-date-picker v-model="form.start_date" type="date" placeholder="Pick a date" style="width: 100%;" value-format="yyyy-MM-dd" />
+            <el-date-picker v-model="form.minDate" type="date" placeholder="Pick a date" style="width: 100%;" value-format="yyyy-MM-dd" />
           </el-col>
           <el-col :span="2" class="line">-</el-col>
           <el-col :span="11">
-            <el-date-picker v-model="form.end_date" type="fixed-time" placeholder="Pick a time" style="width: 100%;" value-format="yyyy-MM-dd" />
+            <el-date-picker v-model="form.maxDate" type="date" placeholder="Pick a time" style="width: 100%;" value-format="yyyy-MM-dd" />
           </el-col>
         </el-form-item>
         <el-form-item label="震 级">
           <el-col :span="11">
-            <el-input v-model="form.start_magnitude" style="width: 100%;" />
+            <el-input type="number" v-model="form.minMagnitude" style="width: 100%;" />
           </el-col>
           <el-col :span="2" class="line">-</el-col>
           <el-col :span="11">
-            <el-input v-model="form.end_magnitude" style="width: 100%;" />
+            <el-input type="number" v-model="form.maxMagnitude" style="width: 100%;" />
           </el-col>
         </el-form-item>
         <el-form-item label="纬 度">
           <el-col :span="11">
-            <el-input v-model="form.start_latitude" style="width: 100%;" />
+            <el-input type="number" v-model="form.minLatitude" style="width: 100%;" />
           </el-col>
           <el-col :span="2" class="line">-</el-col>
           <el-col :span="11">
-            <el-input v-model="form.end_latitude" style="width: 100%;" />
+            <el-input type="number" v-model="form.maxLatitude" style="width: 100%;" />
           </el-col>
         </el-form-item>
         <el-form-item label="经 度">
           <el-col :span="11">
-            <el-input v-model="form.start_longitude" style="width: 100%;" />
+            <el-input type="number" v-model="form.maxLongitude" style="width: 100%;" />
           </el-col>
           <el-col :span="2" class="line">-</el-col>
           <el-col :span="11">
-            <el-input v-model="form.end_longitude" style="width: 100%;" />
+            <el-input type="number" v-model="form.end_longitude" style="width: 100%;" />
           </el-col>
         </el-form-item>
         <el-form-item label="深 度">
           <el-col :span="11">
-            <el-input v-model="form.start_longitude" style="width: 100%;" />
+            <el-input type="number" v-model="form.minDepth" style="width: 100%;" />
           </el-col>
           <el-col :span="2" class="line">-</el-col>
           <el-col :span="11">
-            <el-input v-model="form.end_longitude" style="width: 100%;" />
+            <el-input type="number" v-model="form.maxDepth" style="width: 100%;" />
           </el-col>
         </el-form-item>
         <el-form-item>
@@ -103,23 +103,39 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
       form: {
-        start_date: '',
-        end_date: '',
-        start_magnitude: '',
-        end_magnitude: '',
-        start_latitude: '',
-        end_latitude: '',
-        start_longitude: '',
+        minDate: '',
+        maxDate: '',
+        minMagnitude: '',
+        maxMagnitude: '',
+        minLatitude: '',
+        maxLatitude: '',
+        maxLongitude: '',
         end_longitude: '',
-        start_depth: '',
-        end_depth: ''
+        minDepth: '',
+        maxDepth: ''
       },
       list: null,
       listLoading: false
+    }
+  },
+  methods: {
+    async onSearch (event) {
+      let url = 'http://localhost:8000/inquire/getEarthquakeStatistics/'
+      for (const key in this.form) {
+        if (!!this.form[key] && this.form[key] != '') {
+          url += key + '=' + this.form[key] + '&'
+        }
+      }
+      if (url[url.length - 1] != '/') {
+        url = url.substr(0, url.length - 1)
+        const response = await axios.get(url)
+        this.list = response.data.data
+      }
     }
   }
 }
