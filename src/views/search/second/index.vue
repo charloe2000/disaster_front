@@ -44,17 +44,17 @@
         <el-table-column align="center" prop="created_at" label="发生日期" width="400">
           <template slot-scope="scope">
             <i class="el-icon-time" />
-            <span>{{ scope.row.start_date }}</span>
+            <span>{{ scope.row.date }}</span>
           </template>
         </el-table-column>
         <el-table-column label="地点" align="center">
           <template slot-scope="scope">
-            {{ scope.row.latitude }}
+            {{ scope.row.location }}
           </template>
         </el-table-column>
         <el-table-column label="受灾情况" align="center">
           <template slot-scope="scope">
-            {{ scope.row.latitude }}
+            {{ scope.row.note }}
           </template>
         </el-table-column>
       </el-table>
@@ -94,6 +94,7 @@ export default {
                   if (town.value == this.selectedOptions[2]) {
                     console.log(town.label)
                     url += 'location=' + prov.label + city.label + town.label + '&'
+                    // url += 'location=' + prov.label + town.label + '&'
                     break
                   }
                 }
@@ -117,6 +118,7 @@ export default {
         }
         const response = await axios.get(url)
         this.list = response.data.data
+        console.log(this.list)
       }
 
     },

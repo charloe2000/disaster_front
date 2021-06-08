@@ -41,20 +41,24 @@
             {{ scope.$index }}
           </template>
         </el-table-column>
-        <el-table-column align="center" prop="created_at" label="发生日期" width="400">
+        <el-table-column align="center" prop="created_at" label="波及范围">
           <template slot-scope="scope">
-            <i class="el-icon-time" />
-            <span>{{ scope.row.start_date }}</span>
+            <span>{{ scope.row.basicallyIntactSquare }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="地点" align="center">
+        <el-table-column label="受损范围" align="center">
           <template slot-scope="scope">
-            {{ scope.row.latitude }}
+            {{ scope.row.damagedSquare }}
           </template>
         </el-table-column>
-        <el-table-column label="受灾情况" align="center">
+        <el-table-column label="摧毁范围" align="center">
           <template slot-scope="scope">
-            {{ scope.row.latitude }}
+            {{ scope.row.destroySquare }}
+          </template>
+        </el-table-column>
+        <el-table-column label="程度描述" align="center">
+          <template slot-scope="scope">
+            {{ scope.row.note }}
           </template>
         </el-table-column>
       </el-table>
@@ -114,6 +118,7 @@ export default {
         }
         const response = await axios.get(url)
         this.list = response.data.data
+        console.log(url)
       }
     },
     handleChange(value) {
