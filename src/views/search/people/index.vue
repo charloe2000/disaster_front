@@ -24,6 +24,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSearch">查询</el-button>
+          <el-button type="primary" @click="download" v-if="list">下载</el-button>
         </el-form-item>
       </el-form>
     </el-row>
@@ -76,10 +77,12 @@ export default {
       },
       list: null,
       listLoading: false,
+      filename: '',
     }
   },
   methods: {
     async onSearch (event) {
+      this.filename = 'casualties_'
       let url = 'http://localhost:8000/inquire/getPeopleStatistics/'
       
       // 获取地区名字
@@ -91,6 +94,7 @@ export default {
                 for (const town of city.children) {
                   if (town.value == this.selectedOptions[2]) {
                     url += 'location=' + prov.label + city.label + town.label + '&'
+                    this.filename += prov.label + city.label + town.label + '&'
                     break
                   }
                 }
@@ -105,6 +109,7 @@ export default {
       for (const key in this.form) {
         if (!!this.form[key] && this.form[key] != '') {
           url += key + '=' + this.form[key] + '&'
+          this.filename += key + '=' + this.form[key] + '&'
         }
       }
 
@@ -112,6 +117,10 @@ export default {
         if (url[url.length - 1] == '&') {
           url = url.substr(0, url.length - 1)
         }
+        if (this.filename[this.filename.length - 1] == '&') {
+          this.filename = this.filename.substr(0, this.filename.length - 1)
+        }
+        this.filename += '.json'
         const response = await axios.get(url)
         this.list = response.data.data
       }
@@ -119,6 +128,20 @@ export default {
     handleChange(value) {
       // 必须通过@change来设置selectedOptions，不能通过v-model设置（否则数据不实时）
       this.selectedOptions = value
+    },
+    download () {
+      // 创建a标签
+      let elementA = document.createElement('a')
+      //文件的名称为时间戳加文件名后缀
+      elementA.download = this.filename
+      elementA.style.display = 'none'
+      //生成一个blob二进制数据，内容为json数据
+      let blob = new Blob([JSON.stringify(this.list)])
+      //生成一个指向blob的URL地址，并赋值给a标签的href属性
+      elementA.href = URL.createObjectURL(blob)
+      document.body.appendChild(elementA)
+      elementA.click()
+      document.body.removeChild(elementA)
     }
   }
 }
