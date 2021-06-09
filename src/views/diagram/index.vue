@@ -3,13 +3,23 @@
     <h3 style="margin-top: 50px">灾情图表信息</h3>
     <b-container style="margin-top: 60px;height: 200px;">
       <b-row>
-        <!--左侧地图界面-->
+        <!--左侧界面-->
         <b-col style="margin-right: 30px;height: 350px;background: aliceblue" >
           <div id="main1" style="height: 330px;background: aliceblue;margin-top: 20px" />
         </b-col>
-        <!--右侧折线图界面-->
+        <!--右侧界面-->
         <b-col style="height: 350px;background: aliceblue">
           <div id="main2" style="height: 330px;background: aliceblue;margin-top: 20px" />
+        </b-col>
+      </b-row>
+      <b-row style="margin-top: 20px">
+        <!--左侧地图界面-->
+        <b-col >
+          <h4 style="text-align: center">影响时间占比</h4>
+        </b-col>
+        <!--右侧折线图界面-->
+        <b-col>
+          <h4 style="text-align: center">各类影响时间分布</h4>
         </b-col>
       </b-row>
     </b-container>
@@ -74,10 +84,10 @@ export default {
               show: false
             },
             data: [
-              { value: 1048, name: '次生灾害' },
-              { value: 735, name: '房屋破坏' },
-              { value: 580, name: '基本震情' },
-              { value: 484, name: '人员伤亡' }
+              { value: 0, name: '1天内' },
+              { value: 1, name: '1-2天' },
+              { value: 16, name: '2-4天' },
+              { value: 89, name: '其他' }
             ]
           }
         ]
@@ -102,7 +112,7 @@ export default {
           }
         },
         legend: {
-          data: ['次生灾害', '房屋破坏', '基本震情', '人员伤亡']
+          data: ['次生灾害', '房屋破坏', '生命线灾情','人员伤亡及失踪']
         },
         toolbox: {
           feature: {
@@ -119,7 +129,7 @@ export default {
           {
             type: 'category',
             boundaryGap: false,
-            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+            data: ['1天内', '2-3天', '3-4天', '其他']
           }
         ],
         yAxis: [
@@ -136,7 +146,7 @@ export default {
             emphasis: {
               focus: 'series'
             },
-            data: [120, 132, 101, 134, 90, 230, 210]
+            data: [0,1,7,26]
           },
           {
             name: '房屋破坏',
@@ -146,17 +156,17 @@ export default {
             emphasis: {
               focus: 'series'
             },
-            data: [220, 182, 191, 234, 290, 330, 310]
+            data: [0,0,4,20]
           },
           {
-            name: '基本震情',
+            name: '生命线灾情',
             type: 'line',
             stack: '总量',
             areaStyle: {},
             emphasis: {
               focus: 'series'
             },
-            data: [150, 232, 201, 154, 190, 330, 410]
+            data: [0, 0, 2, 32]
           },
           {
             name: '人员伤亡',
@@ -170,7 +180,7 @@ export default {
             emphasis: {
               focus: 'series'
             },
-            data: [820, 932, 901, 934, 1290, 1330, 1320]
+            data: [0,0,3,11]
           }
         ]
       }
