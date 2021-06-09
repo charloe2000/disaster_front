@@ -1,6 +1,6 @@
 ## 获取全部地震信息
 
-```
+```json
 （地震信息不包括地震id）
 URL：localhost:8000/inquire/getAllEarthquakeStatistics
 无参数
@@ -38,7 +38,7 @@ data:[
 
 ## 获取近期发生地震的位置的经纬度
 
-```
+```json
 （默认返回最近的4条数据）
 URL：localhost:8000/inquire/getRecentDisasterLocation
 无参数

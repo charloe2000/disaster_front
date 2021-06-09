@@ -17,7 +17,7 @@
   </div>
 </template>
 <script>
-import markdownTest from '@/assets/API.md'
+import markdownTest from '@/assets/encode.md'
 export default {
   components: {
     markdownTest
