@@ -61,7 +61,7 @@ export default {
       }
     },
     async initChart() {
-      const ret = await axios.get('http://localhost:9528/static/json/china.json')
+      const ret = await axios.get('http://localhost:8000/static/json/china.json')
       const mapData = ret.data
       this.chartInstance = this.$echarts.init(this.$refs.map_ref)
       this.$echarts.registerMap('chinaMap', mapData)
